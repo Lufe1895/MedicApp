@@ -64,7 +64,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <!-- <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -94,6 +94,10 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+        </div> -->
+        <div id="app" class="content">
+            <example-component></example-component>
         </div>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
