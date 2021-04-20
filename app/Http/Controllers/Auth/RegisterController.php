@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Support\Str;
+use App\Role;
+
 class RegisterController extends Controller
 {
     /*
@@ -49,9 +52,29 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:30'],
+            'last_name' => ['required', 'string', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'numeric', 'min:10'],
+            'address' => ['required', 'string'],
+            'age' => ['required', 'numeric'],
+        ], [
+            'name.required' => 'El NOMBRE es obligatorio.',
+            'name.max' => 'No puede contener más de 30 caracteres.',
+            'lastname.required' => 'El APELLIDO es obligatorio.',
+            'lastname.max' => 'No puede contener más de 30 caracteres.',
+            'email.required' => 'El CORREO es obligatorio.',
+            'email.email' => 'Debe introduccion un CORREO valido.',
+            'email.unique' => 'Este CORREO ya ha sido registrado.',
+            'password.required' => 'La CONTRASEÑA es obligatoria.',
+            'password.min' => 'Debe contener al menos 8 caracteres.',
+            'password.confirm' => 'Las CONTRASEÑAS no coinciden.',
+            'phone.required' => 'El numero de TELEFONO es obligatorio.',
+            'phone.numeric' => 'Tienen que ser un TELEFONO valido.',
+            'address.required' => 'La DIRECCION es obligatoria.',
+            'age.required' => 'La EDAD es obligatoria.'
+
         ]);
     }
 
@@ -63,10 +86,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
+            'api_token' => Str::random(60),
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'address' => $data['phone'],
+            'sex' => $data['sex'],
+            'age' => $data['age'],
         ]);
+
+        $user->roles()->attach(Role::where('name', 'user')->first());
+
+        return $user;
     }
 }
