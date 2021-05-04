@@ -3,13 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\User;
+use App\Role;
 
 class UserController extends Controller
 {
     protected function validator(array $data) {
-        
-    }
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:30'],
+            'last_name' => ['string', 'max:30'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone' => ['required', 'numeric', 'min:10'],
+            'address' => ['required', 'string'],
+            'age' => ['numeric'],
+        ], [
+            'name.required' => 'El NOMBRE es obligatorio.',
+            'name.max' => 'No puede contener más de 30 caracteres.',
+            'last_name.max' => 'No puede contener más de 30 caracteres.',
+            'email.required' => 'El CORREO es obligatorio.',
+            'email.email' => 'Debe introduccion un CORREO valido.',
+            'email.unique' => 'Este CORREO ya ha sido registrado.',
+            'password.required' => 'La CONTRASEÑA es obligatoria.',
+            'password.min' => 'Debe contener al menos 8 caracteres.',
+            'password.confirm' => 'Las CONTRASEÑAS no coinciden.',
+            'phone.required' => 'El numero de TELEFONO es obligatorio.',
+            'phone.numeric' => 'Tienen que ser un TELEFONO valido.',
+            'address.required' => 'La DIRECCION es obligatoria.',
+        ]);
+}
 
     /**
      * Display a listing of the resource.
@@ -40,7 +65,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $user = User::create([
+            'name' => $request['name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'api_token' => Str::random(60),
+            'password' => Hash::make($request['password']),
+            'phone' => $request['phone'],
+            'address' => $request['phone'],
+            'sex' => $request['sex'],
+            'age' => $request['age'],
+        ]);
+
+        $user->roles()->attach(Role::where('name', $request['role'])->first());
+        return $user;
     }
 
     /**
@@ -62,7 +100,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('users.editt');
     }
 
     /**

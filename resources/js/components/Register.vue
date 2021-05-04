@@ -68,17 +68,6 @@
                     </select>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="role" class="col-md-4 col-form-label text-md-right">Sexo:</label>
-                <div class="col-md-6">
-                    <select  v-model="data.role" class="form-control" required autocomplete="sex" autofocus>
-                        <option value="pharmacy" selected>Farmacia</option>
-                        <option value="user">Usuario</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Edad:</label>
                 <div class="col-md-6">
@@ -108,8 +97,7 @@ export default {
                 phone:'',
                 address:'',
                 sex:'',
-                age:'',
-                role,
+                age:''
             }
         }
     },
