@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
+use App\Pedido;
 
 class User extends Authenticatable
 {
@@ -67,5 +68,9 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function pedidos() {
+        return $this->hasMany(Pedido::class);
     }
 }

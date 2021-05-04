@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.panel')
 
 @section('content')
     <div class="jumbotron bg-info bg-gradient shadow-lg" style="padding-top: 80px; padding-bottom: 80px;">
@@ -11,16 +11,14 @@
                     </p>
 
                     <hr class="my-4" />
-
-                        <!-- Si ya ha iniciado sesión se muestra esto -->
-                        <!-- <a href="#" class="btn btn-info btn-lg">Mi Perfil</a> -->
-
-                    
-                        <!-- Si no ha iniciado sesión, se muestra esto -->
-                        <div class="btn-group" role="group">
-                            <a href="{{ url('/register') }}" class="btn btn-primary btn-lg">Registrarme</a>
-                            <a href="{{ url('/login') }}" class="btn btn-secondary btn-lg">Iniciar Sesión</a>
-                        </div>
+                        @if(auth()->user())
+                            <a href="#" class="btn btn-secondary btn-lg">Mi Perfil</a>
+                        @else
+                            <div class="btn-group" role="group">
+                                <a href="#login" data-toggle="modal" data-target="#login" class="btn btn-primary btn-lg">Registrarme</a>
+                                <a href="#register" data-toggle="modal" data-target="#register" class="btn btn-secondary btn-lg">Iniciar Sesión</a>
+                            </div>
+                        @endif
 
                 </div>
             </div>
@@ -76,5 +74,5 @@
     </div>
 
     <br>
-    <example-component />
+    <example-component/>
 @endsection
