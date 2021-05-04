@@ -45,7 +45,7 @@ class UsersTableSeeder extends Seeder
             'age' => 26,
         ]);
 
-        $user->roles()->attach(Role::where('name', 'user')->first());
+        $user->roles()->attach(Role::where('name', 'pharmacy')->first());
 
         // Semilla de Usuario
 

@@ -208,15 +208,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('/cursos/ver') }}" class="nav-link">
+                <a href="{{ url('/users') }}" class="nav-link">
                   <i class="fas fa-user nav-icon"></i>
                   <p>Usuarios</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-hospital nav-icon"></i>
-                  <p>Farmacias</p>
                 </a>
               </li>
             </ul>

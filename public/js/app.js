@@ -2144,6 +2144,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2157,7 +2167,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         phone: '',
         address: '',
         sex: '',
-        age: ''
+        age: '',
+        role: role
       }
     };
   },
@@ -39187,6 +39198,59 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("option", { attrs: { value: "M" } }, [_vm._v("Masculino")])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "role" }
+          },
+          [_vm._v("Sexo:")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.role,
+                  expression: "data.role"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { required: "", autocomplete: "sex", autofocus: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.data,
+                    "role",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "pharmacy", selected: "" } }, [
+                _vm._v("Farmacia")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "user" } }, [_vm._v("Usuario")])
             ]
           )
         ])
