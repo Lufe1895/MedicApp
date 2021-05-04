@@ -12,7 +12,6 @@
             <div class="container-fluid">
                 <div class="card-body">
                     <p class="text-right"><a href="#createUser" data-toggle="modal" data-target="#createUser" class="button special"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Agregar un nuevo Usuario</a></p>
-
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -33,7 +32,7 @@
                                     <td>{{ $user->roles()->first()->description }}</td>
                                     <td>
                                         <a href="#"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="#"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="/users/edit/{{$user->id}}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="#"><i class="fas fa-trash text-danger"></i></a>
                                     </td>
                                 </tr>
@@ -45,10 +44,9 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createUser" aria-hidden="false">
             <div class="modal-dialog modal-lg">
-                <login-component />
+                <createuser-component />
             </div>
         </div>
     </div>
