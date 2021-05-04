@@ -41,7 +41,7 @@ export default {
     methods: {
         send: async function() {
             axios.post(BASE_URL + '/login', this.data)
-                .then(responsoe => {
+                .then(response => {
                     window.location.href = BASE_URL + '/'
                 })
                 .catch(error => {

@@ -2011,7 +2011,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(BASE_URL + '/login', this.data).then(function (responsoe) {
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(BASE_URL + '/login', this.data).then(function (response) {
                   window.location.href = BASE_URL + '/';
                 })["catch"](function (error) {
                   console.log(error);
