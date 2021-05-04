@@ -7,6 +7,10 @@ use App\User;
 
 class UserController extends Controller
 {
+    protected function validator(array $data) {
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where();
-        return view('user');
+        $users = User::all();
+        return view('users.user', ['users' => $users]);
     }
 
     /**
@@ -36,7 +40,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
