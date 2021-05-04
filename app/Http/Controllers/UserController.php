@@ -100,7 +100,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('users.editt');
+        $user = User::all();
+        return view('users.editt', ['users' => $user]);
     }
 
     /**
