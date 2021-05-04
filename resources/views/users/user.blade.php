@@ -1,4 +1,4 @@
-@extends('layouts.panel') 
+@extends('layouts.panel')
 
 @section('content')
     <div class="content">
@@ -32,7 +32,7 @@
                                     <td>{{ $user->roles()->first()->description }}</td>
                                     <td>
                                         <a href="#"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="/users/edit/{{$user->id}}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{{ url('/users/'.$user->id.'/edit') }}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="#"><i class="fas fa-trash text-danger"></i></a>
                                     </td>
                                 </tr>
