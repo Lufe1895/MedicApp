@@ -53,17 +53,16 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:30'],
-            'last_name' => ['required', 'string', 'max:30'],
+            'last_name' => ['string', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'numeric', 'min:10'],
             'address' => ['required', 'string'],
-            'age' => ['required', 'numeric'],
+            'age' => ['numeric'],
         ], [
             'name.required' => 'El NOMBRE es obligatorio.',
             'name.max' => 'No puede contener más de 30 caracteres.',
-            'lastname.required' => 'El APELLIDO es obligatorio.',
-            'lastname.max' => 'No puede contener más de 30 caracteres.',
+            'last_name.max' => 'No puede contener más de 30 caracteres.',
             'email.required' => 'El CORREO es obligatorio.',
             'email.email' => 'Debe introduccion un CORREO valido.',
             'email.unique' => 'Este CORREO ya ha sido registrado.',
@@ -73,8 +72,6 @@ class RegisterController extends Controller
             'phone.required' => 'El numero de TELEFONO es obligatorio.',
             'phone.numeric' => 'Tienen que ser un TELEFONO valido.',
             'address.required' => 'La DIRECCION es obligatoria.',
-            'age.required' => 'La EDAD es obligatoria.'
-
         ]);
     }
 
