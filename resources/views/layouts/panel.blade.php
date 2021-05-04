@@ -213,6 +213,13 @@
                   <p>Usuarios</p>
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a href="{{ url('/pedidos') }}" class="nav-link">
+                  <i class="fas fa-shipping-fast nav-icon"></i>
+                  <p>Pedidos</p>
+                </a>
+              </li>
             </ul>
           </li>
             <div class="dropdown-divider" style="opacity: 0.2;"></div>

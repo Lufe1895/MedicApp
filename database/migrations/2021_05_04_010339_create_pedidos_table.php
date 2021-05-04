@@ -16,11 +16,12 @@ class CreatePedidosTable extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('farmacia_id');
-            $table->string('direccion', 50);
+            $table->unsignedInteger('pharmacy_id');
+            $table->string('address', 50);
             $table->string('phone', 10);
-            $table->string('receta', 100);
-            $table->string('tipo_pago', 20);
+            $table->string('prescription', 100)->nullable();
+            $table->string('payment', 20);
+            $table->unsignedInteger('state_id');
             $table->double('total');
             $table->timestamps();
         });
