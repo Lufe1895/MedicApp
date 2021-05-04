@@ -31,9 +31,13 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->roles()->first()->description }}</td>
                                     <td>
-                                        <a href="#"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{{ url('/users/'.$user->id)}}"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="{{ url('/users/'.$user->id.'/edit') }}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="#"><i class="fas fa-trash text-danger"></i></a>
+                                        <form action="{{ url('/users/'.$user->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit"><i class="fas fa-trash text-danger"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty

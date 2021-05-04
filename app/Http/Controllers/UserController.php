@@ -89,7 +89,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('users.show', ['user'=>$user]);
     }
 
     /**
@@ -100,8 +101,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::all();
-        return view('users.editt', ['users' => $user]);
+        $user = User::find($id);
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -113,7 +114,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->update($request->all());
+        $user->save();
+
+        return view('users.show', ['user' => $user]);
     }
 
     /**
@@ -125,5 +130,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+        $users = User::all();
+        return view('users.user', ['users' => $users]);
     }
 }
