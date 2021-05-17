@@ -14,13 +14,13 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
-                                <td class="font-weight-bold">Id de Usuario:</td>
-                                <td>{{ $pedido->user_id }}</td>
+                                <td class="font-weight-bold">Usuario:</td>
+                                <td>{{ $pedido->person->name }}</td>
                             </tr>
 
                             <tr>
                                 <td class="font-weight-bold">Id de Farmacia:</td>
-                                <td>{{ $pedido->pharmacy_id }}</td>
+                                <td>{{ $pedido->pharmacy->name }}</td>
                             </tr>
 
                             <tr>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePedidosTable extends Migration
+class CreatePharmaciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreatePedidosTable extends Migration
      */
     public function up()
     {
-        Schema::create('pedidos', function (Blueprint $table) {
+        Schema::create('pharmacies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('person_id');
-            $table->unsignedInteger('pharmacy_id');
-            $table->string('address', 50);
+            $table->string('name', 30);
             $table->string('phone', 10);
-            $table->string('prescription', 100)->nullable();
-            $table->string('payment', 20);
-            $table->unsignedInteger('state_id');
-            $table->double('total');
+            $table->string('address', 100);
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreatePedidosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedidos');
+        Schema::dropIfExists('pharmacies');
     }
 }

@@ -135,4 +135,24 @@ class UserController extends Controller
         $users = User::all();
         return view('users.user', ['users' => $users]);
     }
+
+    public function profile() {
+        $user = \Auth::user();
+        if(!$user->hasRole('pharmacy')) {
+            return view('people.show', ['person' => $user->person]);
+        } else {
+            return view('pharmacies.show', ['pharmacy' => $user->pharmacy]);
+        }
+    }
+
+    public function editProfile() {
+        $user = \Auth::user();
+        if(!$user->hasRole('pharmacy')) {
+            $person = $user->person;
+            return view('people.edit', ['person' => $person]);
+        } else {
+            $pharmacy = $user->pharmacy;
+            return view('pharmacies.edit', ['pharmacy' => $pharmacy]);
+        }
+    }
 }

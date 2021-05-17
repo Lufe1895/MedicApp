@@ -74,7 +74,20 @@
             <i class="fas fa-user d-inline-block d-sm-none"></i>&nbsp;<span class="d-none d-sm-inline-block">Opciones de Perfil</span>&nbsp;<i class="fas fa-caret-down"></i>
           </a>
           <div id="profileMenu" class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" class="dropdown-item">
+            <a href="{{ url('/profile') }}" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Mi perfil
+                    <span class="float-right text-sm text-success"><i class="fas fa-user"></i></span>
+                  </h3>
+                </div>
+              </div>
+              <!-- Message End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{ url('/edit/profile') }}" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
                 <div class="media-body">
@@ -86,20 +99,18 @@
               </div>
               <!-- Message End -->
             </a>
-            <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
               <!-- Message Start -->
               <div class="media">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Editar Contraseña
-                    <span class="float-right text-sm text-warning"><i class="fas fa-user"></i></span>
+                    <span class="float-right text-sm text-warning"><i class="fas fa-edit"></i></span>
                   </h3>
                 </div>
               </div>
               <!-- Message End -->
             </a>
-            <div class="dropdown-divider"></div>
             <a class="dropdown-item"  href="/home" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <!-- Message Start -->
               <div class="media">
@@ -176,7 +187,7 @@
     <a href="{{ url('/') }}" class="brand-link">
       <img src="https://images.emojiterra.com/google/android-pie/512px/2695.png" alt="Logo" height="60px"
            style="opacity: 1">
-      <span class="brand-text font-weight-light">&nbsp;</span>
+      <span class="brand-text font-weight-bold">&nbsp;MedicApp</span>
     </a>
 
     <!-- Sidebar -->
@@ -188,45 +199,99 @@
         </div>
         <div class="info">
           @if(auth()->user())
-            <a class="text-white d-block" href="#">{{ auth()->user()->name }}</a>
+            @if(!auth()->user()->hasRole('pharmacy'))
+              <a class="text-white d-block" href="{{ url('/') }}">{{ auth()->user()->person->name }}</a>
+            @else
+              <a class="text-white d-block" href="{{ url('/') }}">{{ auth()->user()->pharmacy->name }}</a>
+            @endif
           @else
-            <a class="text-white d-block" href="#">Bienvenido</a>
+            <a class="text-white d-block" href="{{ url('/') }}">Bienvenido</a>
           @endif
         </div>
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-info"></i>
-              <p>
-                Administración
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/users') }}" class="nav-link">
-                  <i class="fas fa-user nav-icon"></i>
-                  <p>Usuarios</p>
-                </a>
-              </li>
+      @if(auth()->user())
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview menu-open">
+              <a href="#" class="nav-link active">
+                <i class="nav-icon fas fa-user-circle"></i>
+                <p>
+                  Perfil
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ url('/profile') }}" class="nav-link">
+                    <i class="fas fa-user nav-icon"></i>
+                    <p>Mi Perfil</p>
+                  </a>
+                </li>
 
-              <li class="nav-item">
-                <a href="{{ url('/pedidos') }}" class="nav-link">
-                  <i class="fas fa-shipping-fast nav-icon"></i>
-                  <p>Pedidos</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-            <div class="dropdown-divider" style="opacity: 0.2;"></div>
+                <li class="nav-item">
+                  <a href="{{ url('/edit/profile') }}" class="nav-link">
+                    <i class="fas fa-edit nav-icon"></i>
+                    <p>Editar Información</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{ url('/pedidos') }}" class="nav-link">
+                    <i class="fas fa-key nav-icon"></i>
+                    <p>Editar Contraseña</p>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a href="{{ url('/home') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fas fa-times nav-icon"></i>
+                    <p>Cerrar sesión</p>
+                  </a>
+                </li>
               </ul>
             </li>
-        </ul>
-      </nav>
+            <div class="dropdown-divider" style="opacity: 0.2;"></div>
+            @if(auth()->user()->hasRole('admin'))
+              <li class="nav-item has-treeview menu-closed">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-info"></i>
+                  <p>
+                    Administración
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/people') }}" class="nav-link">
+                      <i class="fas fa-user nav-icon"></i>
+                      <p>Personas</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{ url('/pharmacies') }}" class="nav-link">
+                      <i class="fas fa-clinic-medical nav-icon"></i>
+                      <p>Farmacias</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{ url('/pedidos') }}" class="nav-link">
+                      <i class="fas fa-shipping-fast nav-icon"></i>
+                      <p>Pedidos</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <div class="dropdown-divider" style="opacity: 0.2;"></div>
+            @endif
+                </ul>
+              </li>
+          </ul>
+        </nav>
+      @endif
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -238,9 +303,8 @@
     </div>
   </div>
 
-  <footer class="main-footer">
-    Soluciones Informáticas de 
-    <strong>Grupo Impulzo</strong>
+  <footer class="main-footer"> 
+    <strong>MedicAPP</strong>
     <div class="float-right d-none d-sm-inline-block">
       <!-- <b>Version</b> 3.0.4 -->
     </div>

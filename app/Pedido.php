@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Pharmacy;
+use App\Person;
 use App\State;
 
 class Pedido extends Model
@@ -12,12 +14,12 @@ class Pedido extends Model
         'user_id', 'pharmacy_id', 'address', 'phone', 'prescription', 'payment', 'state_id', 'total'
     ];
 
-    public function user() {
-        return $this->belongsTo('App\User');
+    public function person() {
+        return $this->belongsTo(Person::class);
     }
 
     public function pharmacy() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(Pharmacy::class);
     }
 
     public function pedido() {

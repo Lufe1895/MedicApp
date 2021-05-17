@@ -19,6 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/users', 'UserController');
+Route::resource('/pharmacies', 'PharmacyController');
+
+Route::resource('/people', 'PersonController');
 
 Route::resource('/pedidos', 'PedidoController');
+
+Route::get('/meds/{id}', 'MedController@show');
+
+Route::get('/profile', 'UserController@profile');
+
+Route::get('/edit/profile', 'UserController@editProfile');

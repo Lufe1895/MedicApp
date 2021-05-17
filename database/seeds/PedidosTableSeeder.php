@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Pharmacy;
+use App\Person;
 use App\Pedido;
 
 class PedidosTableSeeder extends Seeder
@@ -13,11 +15,11 @@ class PedidosTableSeeder extends Seeder
      */
     public function run()
     {
-        $pharmacy = User::find(2);
-        $user = User::find(3);
+        $pharmacy = Pharmacy::find(1);
+        $user = Person::find(2);
 
         Pedido::create([
-            'user_id' => $user->id,
+            'person_id' => $user->id,
             'pharmacy_id' => $pharmacy->id,
             'address' => $user->address,
             'phone' => $user->phone,
