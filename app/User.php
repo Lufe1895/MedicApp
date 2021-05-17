@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
 use App\Pedido;
+use App\Pharmacy;
+use App\Person;
 
 class User extends Authenticatable
 {
@@ -72,5 +74,13 @@ class User extends Authenticatable
 
     public function pedidos() {
         return $this->hasMany(Pedido::class);
+    }
+
+    public function pharmacy() {
+        return $this->hasOne(Pharmacy::class);
+    }
+
+    public function person() {
+        return $this->hasOne(Person::class);
     }
 }

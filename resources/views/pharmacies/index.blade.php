@@ -16,24 +16,22 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Usuario</th>
                                 <th>Farmacia</th>
-                                <th>Método de Pago</th>
-                                <th>Total</th>
+                                <th>Teléfono</th>
+                                <th>Correo</th>
                                 <th></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @forelse($pedidos as $pedido)
+                            @forelse($pharmacies as $pharmacy)
                                 <tr>
-                                    <td>{{ $pedido->person->name }}</td>
-                                    <td>{{ $pedido->pharmacy->name }}</td>
-                                    <td>{{ $pedido->payment }}</td>
-                                    <td>${{ $pedido->total }}</td>
+                                    <td>{{ $pharmacy->name }}</td>
+                                    <td>{{ $pharmacy->phone }}</td>
+                                    <td>{{ $pharmacy->user->email }}</td>
                                     <td>
-                                        <a href="{{ url('/pedidos/'.$pedido->id) }}"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="{{ url('/pedidos/'.$pedido->id.'/edit') }}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;                                        
+                                        <a href="{{ url('/pharmacies/'.$pharmacy->id) }}"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{{ url('/pharmacies/'.$pharmacy->id.'/edit') }}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;                                        
                                     </td>
                                 </tr>
                             @empty
@@ -42,12 +40,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="createUser" aria-hidden="false">
-            <div class="modal-dialog modal-lg">
-                <login-component />
             </div>
         </div>
     </div>

@@ -23,6 +23,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('login-component', require('./components/Login.vue').default);
 Vue.component('register-component', require('./components/Register.vue').default);
 Vue.component('createuser-component', require('./components/Users/Create.vue').default);
+Vue.component('store-component', require('./components/Store.vue').default);
+Vue.component('show-med-component', require('./components/ShowMed.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
