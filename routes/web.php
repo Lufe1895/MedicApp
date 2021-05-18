@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/pharmacies', 'PharmacyController');
 
+Route::get('/people/login', 'PersonController@loginView');
+
 Route::resource('/people', 'PersonController');
 
 Route::resource('/pedidos', 'PedidoController');
