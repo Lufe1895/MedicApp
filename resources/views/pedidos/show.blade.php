@@ -15,12 +15,21 @@
                         <tbody>
                             <tr>
                                 <td class="font-weight-bold">Usuario:</td>
-                                <td>{{ $pedido->person->name }}</td>
+                                <td>
+                                    <span class="text-bold">Nombre: </span>{{ $pedido->person->name }} <br>
+                                    <span class="text-bold">Apellidos: </span>{{ $pedido->person->last_name }} <br>
+                                    <span class="text-bold">Teléfono: </span>{{ $pedido->person->phone }} <br>
+                                    <span class="text-bold">correo: </span>{{ $pedido->person->user->email }} <br>
+                                </td>
                             </tr>
 
                             <tr>
                                 <td class="font-weight-bold">Id de Farmacia:</td>
-                                <td>{{ $pedido->pharmacy->name }}</td>
+                                <td>
+                                    <span class="text-bold">Nombre: </span>{{ $pedido->pharmacy->name }} <br>
+                                    <span class="text-bold">Correo: </span>{{ $pedido->pharmacy->user->email }} <br>
+                                    <span class="text-bold">Teléfono: </span>{{ $pedido->pharmacy->phone }} <br>
+                                </td>
                             </tr>
 
                             <tr>
