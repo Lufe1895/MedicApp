@@ -4,7 +4,7 @@
     <div class="content">
         <div class="content-header">
             <div class="container-fluid">
-                <h1 class="m-0 text-dark">Editar Pedidos</h1>
+                <h1 class="m-0 text-dark">Editar Perfil</h1>
             </div>
         </div>
 

@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 use Illuminate\Support\Str;
 use App\Role;
+use App\Pharmacy;
+use App\Person;
 
 class RegisterController extends Controller
 {
@@ -53,25 +55,22 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:30'],
-            'last_name' => ['string', 'max:30'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'numeric', 'min:10'],
             'address' => ['required', 'string'],
-            'age' => ['numeric'],
         ], [
             'name.required' => 'El NOMBRE es obligatorio.',
             'name.max' => 'No puede contener más de 30 caracteres.',
-            'last_name.max' => 'No puede contener más de 30 caracteres.',
             'email.required' => 'El CORREO es obligatorio.',
-            'email.email' => 'Debe introduccion un CORREO valido.',
+            'email.email' => 'Debe introducir un CORREO válido.',
             'email.unique' => 'Este CORREO ya ha sido registrado.',
             'password.required' => 'La CONTRASEÑA es obligatoria.',
             'password.min' => 'Debe contener al menos 8 caracteres.',
             'password.confirm' => 'Las CONTRASEÑAS no coinciden.',
-            'phone.required' => 'El numero de TELEFONO es obligatorio.',
-            'phone.numeric' => 'Tienen que ser un TELEFONO valido.',
-            'address.required' => 'La DIRECCION es obligatoria.',
+            'phone.required' => 'El número de TELÉFONO es obligatorio.',
+            'phone.numeric' => 'Tiene que ser un TELÉFONO válido.',
+            'address.required' => 'La DIRECCIÓN es obligatoria.',
         ]);
     }
 
@@ -83,19 +82,47 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'api_token' => Str::random(60),
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            'address' => $data['phone'],
-            'sex' => $data['sex'],
-            'age' => $data['age'],
-        ]);
+        if($data['role'] == 'user') {
+            $user = User::create([
+                'email' => $data['email'],
+                'api_token' => Str::random(60),
+                'password' => Hash::make($data['password'])
+            ]);
+    
+            $person = Person::create([
+                'name' => $data['name'],
+                'last_name' => $data['last_name'],
+                'phone' => $data['phone'],
+                'address' => $data['phone'],
+                'sex' => $data['sex'],
+                'age' => $data['age'],
+                'user_id' => $user->id,
+            ]);
+    
+            $user->person_id = $person->id;
+            $user->save();
 
-        $user->roles()->attach(Role::where('name', $data['role'])->first());
+            $user->roles()->attach(Role::where('name', 'user')->first());
+
+        } else {
+            $user = User::create([
+                'email' => $data['email'],
+                'api_token' => Str::random(60),
+                'password' => Hash::make($data['password'])
+            ]);
+    
+            $pharmacy = Pharmacy::create([
+                'name' => $data['name'],
+                'phone' => $data['phone'],
+                'address' => $data['phone'],
+                'user_id' => $user->id,
+            ]);
+    
+            $user->pharmacy_id = $pharmacy->id;
+            $user->save();
+
+            $user->roles()->attach(Role::where('name', 'pharmacy')->first());
+        }
 
         return $user;
     }

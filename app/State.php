@@ -11,7 +11,7 @@ class State extends Model
         'description'
     ];
 
-    public function pedido() {
+    public function pedidos() {
         return $this->hasMany('App\Pedido');
     }
 }

@@ -24,7 +24,7 @@
                             </tr>
 
                             <tr>
-                                <td class="font-weight-bold">Id de Farmacia:</td>
+                                <td class="font-weight-bold">Farmacia:</td>
                                 <td>
                                     <span class="text-bold">Nombre: </span>{{ $pedido->pharmacy->name }} <br>
                                     <span class="text-bold">Correo: </span>{{ $pedido->pharmacy->user->email }} <br>
@@ -42,10 +42,12 @@
                                 <td>{{ $pedido->phone }}</td>
                             </tr>
 
-                            <tr>
-                                <td class="font-weight-bold">Receta:</td>
-                                <td><a href="#">Ver</a></td>
-                            </tr>
+                            @if($pedido->prescription)
+                                <tr>
+                                    <td class="font-weight-bold">Receta:</td>
+                                    <td><a href="#">Ver</a></td>
+                                </tr>
+                            @endif
 
                             <tr>
                                 <td class="font-weight-bold">Método de Pagos:</td>
@@ -66,7 +68,11 @@
                 </div>
 
                 <div class="btn-group">
-                    <a href="{{ url('/pedidos') }}" class="btn btn-primary"><i class="fas fa-chevron-left"></i> &nbsp; Volver a la Lista</a>
+                    @if(auth()->user()->hasRole('admin'))
+                        <a href="{{ url('/pedidos') }}" class="btn btn-primary"><i class="fas fa-chevron-left"></i> &nbsp; Volver a la Lista</a>
+                    @elseif(auth()->user()->hasRole('user'))
+                        <a href="{{ url('/orders') }}" class="btn btn-primary"><i class="fas fa-chevron-left"></i> &nbsp; Volver a la Lista</a>
+                    @endif
                     <a href="{{ url('/pedidos/'.$pedido->id.'/edit') }}" class="btn btn-secondary"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                 </div>
             </div>

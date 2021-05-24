@@ -32,7 +32,7 @@ export default {
         axios.get('https://lys-medicapi.herokuapp.com/')
             .then(response => {
                 this.meds = response.data;
-                console.log(this.meds);
+                //console.log(this.meds);
             }).catch(error => {
                 console.log(error);
             });

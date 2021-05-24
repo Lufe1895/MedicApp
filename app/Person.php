@@ -9,7 +9,7 @@ use App\Pedido;
 class Person extends Model
 {
     protected $fillable = [
-        'name','last_name', 'phone', 'address', 'sex', 'age'
+        'name', 'last_name', 'phone', 'address', 'sex', 'age', 'user_id'
     ];
 
     public function user() {

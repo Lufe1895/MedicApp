@@ -32,3 +32,5 @@ Route::get('/meds/{id}', 'MedController@show');
 Route::get('/profile', 'UserController@profile');
 
 Route::get('/edit/profile', 'UserController@editProfile');
+
+Route::get('/orders', 'PersonController@orders');

@@ -8,7 +8,7 @@ use App\Pedido;
 class Pharmacy extends Model
 {
     protected $fillable = [
-        'name', 'phone', 'address'
+        'name', 'phone', 'address', 'user_id'
     ];
 
     public function user() {

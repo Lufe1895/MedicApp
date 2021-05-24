@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Person;
 use App\User;
 
@@ -107,7 +108,7 @@ class PersonController extends Controller
                     'age' => $user->person->age
                 ]);
             }
-        } 
+        }
 
         return response()->json([
             'status' => 'Error',
@@ -117,5 +118,10 @@ class PersonController extends Controller
 
     public function loginView() {
         return view('people.login');
+    }
+
+    public function orders() {
+        $user = \Auth::user();
+        return view('people.orders', ['orders' => $user->person->pedidos->all()]);
     }
 }
