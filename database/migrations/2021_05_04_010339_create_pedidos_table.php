@@ -23,7 +23,7 @@ class CreatePedidosTable extends Migration
             $table->string('prescription', 100)->nullable();
             $table->string('payment', 20);
             $table->unsignedInteger('state_id');
-            $table->double('total');
+            $table->double('total')->nullable();
             $table->timestamps();
         });
     }

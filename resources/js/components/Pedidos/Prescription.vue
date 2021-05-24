@@ -16,7 +16,8 @@
             <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Foto de la Receta:</label>
                 <div class="col-md-6">
-                    <input type="file" accept="image/png, image/jpeg" class="form-control" placeholder="Foto de la Receta" ref="file" required autofocus>
+                    <input type="file" accept="image/png, image/jpeg" class="form-control" ref="file">
+                    <span v-if="errors.image" class="font-italic text-danger">{{ errors.image }}</span>
                 </div>
             </div>
 
@@ -24,6 +25,7 @@
                 <label for="email" class="col-md-4 col-form-label text-md-right">Dirección:</label>
                 <div class="col-md-6">
                     <input v-model="order.address" type="text" class="form-control" placeholder="Dirección" required autofocus>
+                    <span v-if="errors.address" class="font-italic text-danger">{{ errors.address[0] }}</span>
                 </div>
             </div>
 
@@ -31,6 +33,7 @@
                 <label for="email" class="col-md-4 col-form-label text-md-right">Teléfono:</label>
                 <div class="col-md-6">
                     <input v-model="order.phone" type="text" class="form-control" placeholder="XXXXXXXXXX" required autofocus>
+                    <span v-if="errors.phone" class="font-italic text-danger">{{ errors.phone[0] }}</span>
                 </div>
             </div>
 
@@ -73,13 +76,13 @@ export default {
     props:['user'],
     data:function() {
         return {
-            pharmacies:[],
+            errors: [],
+            pharmacies: [],
             order: {
                 address: JSON.parse(this.user).address,
                 person_id: JSON.parse(this.user).id,
                 phone: JSON.parse(this.user).phone,
-                payment: 'Efectivo',
-                state_id: 1
+                payment: 'Efectivo'
                 //address: this.user,
             }
         }
@@ -98,9 +101,16 @@ export default {
     },
     methods: {
         send: async function() {
-            axios.post(BASE_URL + '/register', this.data)
+            const fd = new FormData();
+            fd.append('pharmacy_id', this.order.pharmacy_id);
+            fd.append('address', this.order.address);
+            fd.append('phone', this.order.phone);
+            fd.append('payment', this.order.payment);
+            fd.append("image", this.$refs.file.files[0]);
+            console.log(this.$refs.file.files[0]);
+            axios.post(BASE_URL + '/pedidos/new', fd)
                 .then(responsoe => {
-                    window.location.href = BASE_URL + '/'
+                    window.location.href = BASE_URL + '/orders'
                 })
                 .catch(error => {
                     console.log(error.response);

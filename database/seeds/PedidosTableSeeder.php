@@ -21,12 +21,12 @@ class PedidosTableSeeder extends Seeder
         Pedido::create([
             'person_id' => $user->id,
             'pharmacy_id' => $pharmacy->id,
-            'meds' => 'Trimetroprima, 50 mg; Paracetamol, 100 mg;'
+            'meds' => 'Trimetroprima, 50 mg; Paracetamol, 100 mg;',
             'address' => $user->address,
             'phone' => $user->phone,
             'prescription' => '',
             'payment' => 'Efectivo',
-            'state_id' => 1,
+            'state_id' => 2,
             'total' => 200.50
         ]);
     }

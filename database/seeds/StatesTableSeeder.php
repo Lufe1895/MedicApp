@@ -13,7 +13,12 @@ class StatesTableSeeder extends Seeder
     public function run()
     {
         State::create([
-            'name' => 'En Proceso',
+            'name' => 'En revisión',
+            'description' => 'Su pedido está en proceso de revisión'
+        ]);
+
+        State::create([
+            'name' => 'En proceso de entrega',
             'description' => 'Su pedido está en proceso de entrega'
         ]);
 

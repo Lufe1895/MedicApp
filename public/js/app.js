@@ -2129,18 +2129,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
   data: function data() {
     return {
+      errors: [],
       pharmacies: [],
       order: {
         address: JSON.parse(this.user).address,
         person_id: JSON.parse(this.user).id,
         phone: JSON.parse(this.user).phone,
-        payment: 'Efectivo',
-        state_id: 1 //address: this.user,
+        payment: 'Efectivo' //address: this.user,
 
       }
     };
@@ -2161,12 +2164,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _send = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this2 = this;
 
+        var fd;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(BASE_URL + '/register', this.data).then(function (responsoe) {
-                  window.location.href = BASE_URL + '/';
+                fd = new FormData();
+                fd.append('pharmacy_id', this.order.pharmacy_id);
+                fd.append('address', this.order.address);
+                fd.append('phone', this.order.phone);
+                fd.append('payment', this.order.payment);
+                fd.append("image", this.$refs.file.files[0]);
+                console.log(this.$refs.file.files[0]);
+                axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(BASE_URL + '/pedidos/new', fd).then(function (responsoe) {
+                  window.location.href = BASE_URL + '/orders';
                 })["catch"](function (error) {
                   console.log(error.response);
 
@@ -2176,7 +2187,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 1:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -39537,14 +39548,14 @@ var render = function() {
           _c("input", {
             ref: "file",
             staticClass: "form-control",
-            attrs: {
-              type: "file",
-              accept: "image/png, image/jpeg",
-              placeholder: "Foto de la Receta",
-              required: "",
-              autofocus: ""
-            }
-          })
+            attrs: { type: "file", accept: "image/png, image/jpeg" }
+          }),
+          _vm._v(" "),
+          _vm.errors.image
+            ? _c("span", { staticClass: "font-italic text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.image))
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -39584,7 +39595,13 @@ var render = function() {
                 _vm.$set(_vm.order, "address", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.errors.address
+            ? _c("span", { staticClass: "font-italic text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.address[0]))
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -39624,7 +39641,13 @@ var render = function() {
                 _vm.$set(_vm.order, "phone", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.errors.phone
+            ? _c("span", { staticClass: "font-italic text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.phone[0]))
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
