@@ -3,12 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Pedido;
 use App\User;
 use App\State;
 
 class PedidoController extends Controller
 {
+    protected function validator(array $data) 
+    {
+        return Validator::make($data, [
+            'address' => ['required', 'string', 'max:50', 'min:2'],
+            'phone' => ['required', 'numeric']
+        ], [
+            'address.required' => 'Se necesita una dirección.',
+            'address.string' => 'La dirección debe ser válida',
+            'address.max' => 'La dirección no puede tener más de 50 caracteres.',
+            'address.min' => 'La dirección debe contener al menos 2 caracteres.',
+            'phone.required' => 'Se necesita un teléfono.',
+            'phone.numeric' => 'El teléfono solo puede contener números.'
+        ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,6 +58,36 @@ class PedidoController extends Controller
         $pedido = Pedido::create($request->all());
         $pedido->save();
         return view('pedidos.show', ['pedido' => $pedido]);
+    }
+
+    public function new(Request $request) {
+        $validator = $this->validator($request->all());
+
+        if($validator->fails()) {
+            return response()->json(["errors" => $validator->getMessageBag()], 422);
+        } else if(!$request->hasFile('image')) {
+            return response()->json(["errors" => ['image' => 'Debe subir la imagen de su receta.']], 422);
+        }
+
+        $user = \Auth::user();
+
+        
+        //$path = $request->file('image')->storeAs('/recetas/'.$user->person->id, $request->all()['image']->getClientOriginalName());
+        $file = $request->file('image');
+        $path = 'recetas/'.$user->person->id.'/';
+        $fileName = time().'-'.$file->getClientOriginalName();
+        $uploadSuccess = $request->file('image')->move($path, $fileName);
+
+
+        $pedido = Pedido::create([
+            'person_id' => $user->person->id,
+            'pharmacy_id' => $request->all()['pharmacy_id'],
+            'address' => $request->all()['address'],
+            'phone' => $request->all()['phone'],
+            'prescription' => '/'.$path.$fileName,
+            'payment' => $request->all()['payment'],
+            'state_id' => 1
+        ]);
     }
 
     /**
@@ -99,5 +144,29 @@ class PedidoController extends Controller
         $pedido->delete();
         $pedidos = Pedido::all();
         return view('pedidos.index', ['pedidos' => $pedidos]);
+    }
+
+    public function cancel($id) 
+    {
+        $pedido = Pedido::find($id);
+        $pedido->state_id = 4;
+        $pedido->save();
+        return redirect('/pedidos/'. $id);
+    }
+
+    public function deliver($id) 
+    {
+        $pedido = Pedido::find($id);
+        $pedido->state_id = 3;
+        $pedido->save();
+        return redirect('/pedidos/'. $id);
+    }
+
+    public function total($id, Request $request) 
+    {
+        $pedido = Pedido::find($id);
+        $pedido->total = $request->all()['total'];
+        $pedido->save();
+        return redirect('/pedidos/'. $id);
     }
 }

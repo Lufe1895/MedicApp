@@ -14,8 +14,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Usuario</th>
-                                <th>Farmacia</th>
+                                <th>Fecha de pedido</th>
+                                <th>Estado</th>
                                 <th>Método de Pago</th>
                                 <th>Total</th>
                                 <th></th>
@@ -23,15 +23,14 @@
                         </thead>
 
                         <tbody>
-                            @forelse($pedidos as $pedido)
+                            @forelse($orders as $order)
                                 <tr>
-                                    <td>{{ $pedido->person->name }}</td>
-                                    <td>{{ $pedido->pharmacy->name }}</td>
-                                    <td>{{ $pedido->payment }}</td>
-                                    <td>${{ $pedido->total }}</td>
+                                    <td>{{ $order->created_at->format('d/m/Y') }}</td>
+                                    <td>{{ $order->state->name }}</td>
+                                    <td>{{ $order->payment }}</td>
+                                    <td>${{ $order->total }}</td>
                                     <td>
-                                        <a href="{{ url('/pedidos/'.$pedido->id) }}"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="{{ url('/pedidos/'.$pedido->id.'/edit') }}"><i class="fas fa-edit text-success"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;                                        
+                                        <a href="{{ url('/pedidos/'.$order->id) }}">Ver detalles</a>
                                     </td>
                                 </tr>
                             @empty

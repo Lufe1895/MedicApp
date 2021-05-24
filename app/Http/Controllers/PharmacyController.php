@@ -94,4 +94,10 @@ class PharmacyController extends Controller
         $pharmacies = Pharmacy::all();
         return response()->json($pharmacies);
     }
+
+    public function orders() {
+        $user = \Auth::user();
+        //dd($user->pharmacy->pedidos->all());
+        return view('people.orders', ['orders' => $user->pharmacy->pedidos->all()]);
+    }
 }

@@ -11,7 +11,7 @@ use App\State;
 class Pedido extends Model
 {
     protected $fillable = [
-        'user_id', 'pharmacy_id', 'address', 'phone', 'prescription', 'payment', 'state_id', 'total'
+        'person_id', 'pharmacy_id', 'address', 'phone', 'prescription', 'payment', 'state_id', 'total'
     ];
 
     public function person() {

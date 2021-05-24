@@ -99,18 +99,18 @@
               </div>
               <!-- Message End -->
             </a>
-            <a href="#" class="dropdown-item">
+            <!-- <a href="#" class="dropdown-item"> -->
               <!-- Message Start -->
-              <div class="media">
+              <!-- <div class="media">
                 <div class="media-body">
                   <h3 class="dropdown-item-title">
                     Editar Contraseña
                     <span class="float-right text-sm text-warning"><i class="fas fa-edit"></i></span>
                   </h3>
                 </div>
-              </div>
+              </div> -->
               <!-- Message End -->
-            </a>
+            <!-- </a> -->
             <a class="dropdown-item"  href="/home" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               <!-- Message Start -->
               <div class="media">
@@ -174,12 +174,13 @@
       <login-component />
     </div>
   </div>
-
-  <div class="modal fade" id="order" tabindex="-1" aria-labelledby="order" aria-hidden="false">
-    <div class="modal-dialog modal-lg">
-      <order-prescription-component :user="'{{ auth()->user()->person }}'" />
+  @if(auth()->user() && auth()->user()->hasRole('user'))
+    <div class="modal fade" id="order" tabindex="-1" aria-labelledby="order" aria-hidden="false">
+      <div class="modal-dialog modal-lg">
+        <order-prescription-component :user="'{{ auth()->user()->person }}'" />
+      </div>
     </div>
-  </div>
+  @endif
 
   <div class="modal fade" id="register" tabindex="-1" aria-labelledby="register" aria-hidden="false">
     <div class="modal-dialog">
@@ -270,12 +271,12 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="{{ url('/pedidos') }}" class="nav-link">
                     <i class="fas fa-key nav-icon"></i>
                     <p>Editar Contraseña</p>
                   </a>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                   <a href="{{ url('/home') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -286,9 +287,9 @@
               </ul>
             </li>
             
-            @if(auth()->user()->hasRole('user'))
+            @if(auth()->user() && auth()->user()->hasRole('user'))
               <div class="dropdown-divider" style="opacity: 0.2;"></div>
-              <li class="nav-item has-treeview menu-open">
+              <li class="nav-item has-treeview menu-closed">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-dolly-flatbed"></i>
                   <p>
@@ -308,6 +309,25 @@
                     <a href="#order" data-toggle="modal" data-target="#order" class="nav-link">
                       <i class="fas fa-cart-plus nav-icon"></i>
                       <p>Pedido con Receta</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            @elseif(auth()->user() && auth()->user()->hasRole('pharmacy'))
+            <div class="dropdown-divider" style="opacity: 0.2;"></div>
+              <li class="nav-item has-treeview menu-closed">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-dolly-flatbed"></i>
+                  <p>
+                    Pedidos
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/pharmacies/orders') }}" class="nav-link">
+                      <i class="fas fa-box-open nav-icon"></i>
+                      <p>Mis Pedidos</p>
                     </a>
                   </li>
                 </ul>
