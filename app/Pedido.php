@@ -22,7 +22,7 @@ class Pedido extends Model
         return $this->belongsTo(Pharmacy::class);
     }
 
-    public function pedido() {
+    public function state() {
         return $this->belongsTo('App\State');
     }
 }

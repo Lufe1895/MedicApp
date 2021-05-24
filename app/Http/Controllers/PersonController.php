@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Person;
+use App\User;
 
 class PersonController extends Controller
 {
@@ -88,5 +91,37 @@ class PersonController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function login(Request $request) {
+        $user = User::where('email', $request->all()['email'])->first();
+
+        if($user) {
+            if(Hash::check($request->all()['password'], $user->password) && $user->hasRole('user')) {
+                return response()->json([
+                    'name' => $user->person->name,
+                    'last_name' => $user->person->last_name,
+                    'email' => $user->email,
+                    'phone' => $user->person->phone,
+                    'address' => $user->person->address,
+                    'sex' => $user->person->sex,
+                    'age' => $user->person->age
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status' => 'Error',
+            'message' => 'El usuario o la contraseña son incorrectos.'
+        ]);
+    }
+
+    public function loginView() {
+        return view('people.login');
+    }
+
+    public function orders() {
+        $user = \Auth::user();
+        return view('people.orders', ['orders' => $user->person->pedidos->all()]);
     }
 }

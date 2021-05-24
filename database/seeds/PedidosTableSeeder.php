@@ -21,6 +21,7 @@ class PedidosTableSeeder extends Seeder
         Pedido::create([
             'person_id' => $user->id,
             'pharmacy_id' => $pharmacy->id,
+            'meds' => 'Trimetroprima, 50 mg; Paracetamol, 100 mg;'
             'address' => $user->address,
             'phone' => $user->phone,
             'prescription' => '',

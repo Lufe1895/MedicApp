@@ -38,10 +38,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="/home" class="nav-link"><i class="fas fa-home"></i>&nbsp;Página Principal</a>
+        <a href="/" class="nav-link"><i class="fas fa-home"></i>&nbsp;Página Principal</a>
       </li>
       <li class="nav-item d-inline-block d-sm-none">
-        <a href="/home" class="nav-link"><i class="fas fa-home"></i></a>
+        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
       </li>
     </ul>
 
@@ -175,9 +175,42 @@
     </div>
   </div>
 
-  <div class="modal fade" id="register" tabindex="-1" aria-labelledby="register" aria-hidden="false">
+  <div class="modal fade" id="order" tabindex="-1" aria-labelledby="order" aria-hidden="false">
     <div class="modal-dialog modal-lg">
-      <register-component />
+      <order-prescription-component :user="'{{ auth()->user()->person }}'" />
+    </div>
+  </div>
+
+  <div class="modal fade" id="register" tabindex="-1" aria-labelledby="register" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">¿Es una persona o una Farmacia?</h5>
+        </div>
+
+        <div class="modal-body">
+          <p>Seleccione si es una persona o una farmacia.</p>
+        </div>
+
+        <div class="modal-footer">
+          <a href="#people" data-toggle="modal" data-target="#people" class="btn btn-primary" data-dismiss="modal">Soy una Persona</a>
+          <a href="#pharmacy" data-toggle="modal" data-target="#pharmacy" class="btn btn-primary" data-dismiss="modal">Soy una Farmacia</a>
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="people" tabindex="-1" aria-labelledby="people" aria-hidden="false">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <register-people-component />
+    </div>
+  </div>
+
+  <div class="modal fade" id="pharmacy" tabindex="-1" aria-labelledby="pharmacy" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+      <register-pharmacy-component />
     </div>
   </div>
 
@@ -252,6 +285,34 @@
                 </li>
               </ul>
             </li>
+            
+            @if(auth()->user()->hasRole('user'))
+              <div class="dropdown-divider" style="opacity: 0.2;"></div>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-dolly-flatbed"></i>
+                  <p>
+                    Pedidos
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ url('/orders') }}" class="nav-link">
+                      <i class="fas fa-box-open nav-icon"></i>
+                      <p>Mis Pedidos</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="#order" data-toggle="modal" data-target="#order" class="nav-link">
+                      <i class="fas fa-cart-plus nav-icon"></i>
+                      <p>Pedido con Receta</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            @endif
             <div class="dropdown-divider" style="opacity: 0.2;"></div>
             @if(auth()->user()->hasRole('admin'))
               <li class="nav-item has-treeview menu-closed">

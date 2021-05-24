@@ -1,22 +1,14 @@
 <template>
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Registrar Farmacia</h5>
         </div>
         <div class="modal-body">
             <div class="form-group row">
                 <label for="email" class="col-md-4 col-form-label text-md-right">Nombre(s):</label>
                 <div class="col-md-6">
-                    <input v-model="data.name" type="text" class="form-control" required placeholder="Correo" autofocus>
+                    <input v-model="data.name" type="text" class="form-control" required placeholder="Nombre" autofocus>
                     <span v-if="errors.name" class="font-italic text-danger">{{ errors.name[0] }}</span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Apellidos:</label>
-                <div class="col-md-6">
-                    <input v-model="data.last_name" type="text" class="form-control" placeholder="Contraseña" required autofocus>
-                    <span v-if="errors.last_name" class="font-italic text-danger">{{ errors.last_name[0] }}</span>
                 </div>
             </div>
 
@@ -58,34 +50,6 @@
                     <span v-if="errors.address" class="font-italic text-danger">{{ errors.address[0] }}</span>
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Sexo: </label>
-                <div class="col-md-6">
-                    <select  v-model="data.sex" class="form-control" required autocomplete="sex" autofocus>
-                        <option value="F" selected>Femenino</option>
-                        <option value="M">Masculino</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="role" class="col-md-4 col-form-label text-md-right">Rol: </label>
-                <div class="col-md-6">
-                    <select  v-model="data.role" class="form-control" required autofocus>
-                        <option value="pharmacy" selected>Farmacia</option>
-                        <option value="user">Usuario</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">Edad:</label>
-                <div class="col-md-6">
-                    <input v-model="data.age" type="number" class="form-control" placeholder="Edad" required autofocus>
-                    <span v-if="errors.age" class="font-italic text-danger">{{ errors.age[0] }}</span>
-                </div>
-            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -110,15 +74,15 @@ export default {
                 address:'',
                 sex:'',
                 age:'',
-                role: '',
+                role: 'pharmacy',
             }
         }
     },
     methods: {
         send: async function() {
-            axios.post(BASE_URL + '/users', this.data)
+            axios.post(BASE_URL + '/register', this.data)
                 .then(responsoe => {
-                    window.location.href = BASE_URL + '/users'
+                    window.location.href = BASE_URL + '/'
                 })
                 .catch(error => {
                     console.log(error.response);

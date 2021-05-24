@@ -88,4 +88,10 @@ class PharmacyController extends Controller
     {
         //
     }
+
+    public function all() 
+    {
+        $pharmacies = Pharmacy::all();
+        return response()->json($pharmacies);
+    }
 }

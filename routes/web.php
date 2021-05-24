@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/pharmacies', 'PharmacyController');
 
+Route::get('/people/login', 'PersonController@loginView');
+
 Route::resource('/people', 'PersonController');
 
 Route::resource('/pedidos', 'PedidoController');
@@ -30,3 +32,5 @@ Route::get('/meds/{id}', 'MedController@show');
 Route::get('/profile', 'UserController@profile');
 
 Route::get('/edit/profile', 'UserController@editProfile');
+
+Route::get('/orders', 'PersonController@orders');

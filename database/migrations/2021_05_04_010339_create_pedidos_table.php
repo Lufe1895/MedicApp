@@ -17,6 +17,7 @@ class CreatePedidosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('person_id');
             $table->unsignedInteger('pharmacy_id');
+            $table->string('meds')->nullable();
             $table->string('address', 50);
             $table->string('phone', 10);
             $table->string('prescription', 100)->nullable();
