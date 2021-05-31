@@ -305,12 +305,12 @@
                     </a>
                   </li>
 
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a href="#order" data-toggle="modal" data-target="#order" class="nav-link">
                       <i class="fas fa-cart-plus nav-icon"></i>
                       <p>Pedido con Receta</p>
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </li>
             @elseif(auth()->user() && auth()->user()->hasRole('pharmacy'))
