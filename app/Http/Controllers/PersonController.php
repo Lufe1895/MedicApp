@@ -99,7 +99,7 @@ class PersonController extends Controller
         if($user) {
             if(Hash::check($request->all()['password'], $user->password) && $user->hasRole('user')) {
                 return response()->json([
-                    'status' => 'Correcto'
+                    'status' => 'Correcto',
                     'name' => $user->person->name,
                     'last_name' => $user->person->last_name,
                     'email' => $user->email,
