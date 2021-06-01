@@ -13,39 +13,50 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-/**Empiezan rutas de farmacias */
-Route::get('/pharmacies/orders', 'PharmacyController@orders');
-
-Route::resource('/pharmacies', 'PharmacyController');
-/**Terminan rutas de farmacias */
-
-Route::get('/people/login', 'PersonController@loginView');
-
-Route::resource('/people', 'PersonController');
-
-
-/**Empiezan rutas de pedidos */
-Route::resource('/pedidos', 'PedidoController');
-
-Route::post('/pedidos/new', 'PedidoController@new');
-
-Route::get('/pedidos/{id}/cancel', 'PedidoController@cancel');
-
-Route::get('/pedidos/{id}/deliver', 'PedidoController@deliver');
-
-Route::post('/pedidos/{id}/total', 'PedidoController@total');
-/**Terminan rutas de pedidos */
+//Route::get('/home', 'HomeController@index');
 
 Route::get('/meds/{id}', 'MedController@show');
 
-Route::get('/profile', 'UserController@profile');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/profile', 'UserController@profile');
 
-Route::get('/edit/profile', 'UserController@editProfile');
+    Route::get('/edit/profile', 'UserController@editProfile');
 
-Route::get('/orders', 'PersonController@orders');
+    Route::resource('/people', 'PersonController', ['only' => [
+        'update'
+    ]]);
+
+    Route::resource('/pharmacies', 'PharmacyController', ['only' => [
+        'update'
+    ]]);
+
+    /**Empiezan rutas de pedidos */
+        Route::resource('/pedidos', 'PedidoController');
+
+        Route::post('/pedidos/new', 'PedidoController@new');
+
+        Route::get('/pedidos/{id}/cancel', 'PedidoController@cancel');
+
+        Route::get('/pedidos/{id}/deliver', 'PedidoController@deliver');
+
+        Route::post('/pedidos/{id}/total', 'PedidoController@total');
+    /**Terminan rutas de pedidos */
+
+    Route::group(['middleware' => 'role:user'], function() {
+        Route::get('/orders', 'PersonController@orders');
+    });
+
+    Route::group(['middleware' => 'role:pharmacy'], function() {
+        Route::get('/pharmacies/orders', 'PharmacyController@orders');
+    });
+
+    Route::group(['middleware' => 'role:admin'], function() {
+        Route::resource('/people', 'PersonController', ['except' => 'update']);
+
+        Route::resource('/pharmacies', 'PharmacyController');
+    });
+});

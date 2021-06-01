@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>{{ $person->name }}</td>
                                     <td>{{ $person->phone }}</td>
-                                    <td>{{ 'Hola' }}</td>
+                                    <td>{{ $person->user->email }}</td>
                                     <td>{{ $person->user->roles->first()->description }}</td>
                                     <td>
                                         <a href="{{ url('/people/'.$person->id)}}"><i class="fas fa-eye text-primary"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
