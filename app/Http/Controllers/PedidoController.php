@@ -169,4 +169,29 @@ class PedidoController extends Controller
         $pedido->save();
         return redirect('/pedidos/'. $id);
     }
+
+    public function pedidos(Request $request) 
+    {
+        $user = User::where('email', $request->all()['email'])->first();
+
+        if($user) {
+            $pedidos = $user->person->pedidos->all();
+            if($pedidos) {
+                return response()->json([
+                    'status' => 'Correcto',
+                    'pedidos' => $pedidos
+                ]);
+            }
+
+            return response()->json([
+                'status' => 'Nulo',
+                'pedidos' => 'Usted no tiene pedidos.'
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'Error',
+            'message' => 'El usuario no existe.'
+        ]);
+    }
 }
