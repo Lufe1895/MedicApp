@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/people/login', 'PersonController@login');
 Route::post('/people/pedidos', 'PedidoController@pedidos');
+Route::post('/compras/ordenar', 'PedidoController@new');
 Route::get('/pharmacies', 'PharmacyController@all');
 
 /**

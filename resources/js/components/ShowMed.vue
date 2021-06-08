@@ -1,16 +1,16 @@
 <template>
-    <div class="content">
-        <div class="content-header">
+    <div class="modal-content">
+        <div class="modal-header">
             <div class="container-fluid">
                 <h1 class="m-0 text-dark">{{ this.med.name }}</h1>
             </div>
         </div>
 
-        <div class="card">
+        <div class="modal-body">
             <div class="container-fluid">
-                <div class="card-body">
+                <div>
                     <div class="row">
-                        <div class="col-12 col-md-4 offset-4">
+                        <div class="col-12 col-md-4 offset-md-4">
                             <img :src="med.image" class="img-fluid" />
                         </div>
                     </div>
@@ -43,26 +43,31 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 export default {
-    props:['id'],
+    props:['med'],
     data: function () {
         return {
-            med: {}
+            //med: {}
         } 
     },
-    mounted: async function () {
-        axios.get('https://lys-medicapi.herokuapp.com/' + this.id)
-            .then(response => {
-                this.med = response.data;
-                console.log(this.med);
-            }).catch(error => {
-                console.log(error);
-            });
+    mounted: function () {
+        //console.log(this.id);
+        // axios.get('https://lys-medicapi.herokuapp.com/' + this.id)
+        //     .then(response => {
+        //         this.med = response.data;
+        //         console.log(this.med);
+        //     }).catch(error => {
+        //         console.log(error);
+        //     });
     }
 }
 </script>

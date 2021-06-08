@@ -27,6 +27,8 @@ Vue.component('show-med-component', require('./components/ShowMed.vue').default)
 Vue.component('register-people-component', require('./components/People/Create.vue').default);
 Vue.component('register-pharmacy-component', require('./components/Pharmacy/Create.vue').default);
 Vue.component('order-prescription-component', require('./components/Pedidos/Prescription.vue').default);
+Vue.component('cart-component', require('./components/Cart.vue').default);
+Vue.component('buy-component', require('./components/Buy.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

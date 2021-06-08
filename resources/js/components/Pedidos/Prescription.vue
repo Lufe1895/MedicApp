@@ -88,7 +88,7 @@ export default {
         }
     },
     mounted: function() {
-        console.log(this.order.address);
+        //console.log(this.order.address);
         axios.get(BASE_URL + '/api/pharmacies')
             .then(response => {
                 this.pharmacies = response.data;

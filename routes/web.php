@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::group(['middleware' => 'role:user'], function() {
         Route::get('/orders', 'PersonController@orders');
+
+        Route::get('/ver/compra', 'PedidoController@viewCompra');
     });
 
     Route::group(['middleware' => 'role:pharmacy'], function() {

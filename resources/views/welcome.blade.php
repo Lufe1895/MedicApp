@@ -26,6 +26,10 @@
     </div>
 
     <div class="container">
-        <store-component />
+        @if(auth()->user() && auth()->user()->hasRole('user'))
+            <store-component login="{{ auth()->user() }}" user="{{ auth()->user()->person }}"/>
+        @else
+            <store-component login="{{ auth()->user() }}" />
+        @endif
     </div>
 @endsection

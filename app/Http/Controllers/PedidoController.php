@@ -65,27 +65,16 @@ class PedidoController extends Controller
 
         if($validator->fails()) {
             return response()->json(["errors" => $validator->getMessageBag()], 422);
-        } else if(!$request->hasFile('image')) {
-            return response()->json(["errors" => ['image' => 'Debe subir la imagen de su receta.']], 422);
         }
 
-        $user = \Auth::user();
-
-        
-        //$path = $request->file('image')->storeAs('/recetas/'.$user->person->id, $request->all()['image']->getClientOriginalName());
-        $file = $request->file('image');
-        $path = 'recetas/'.$user->person->id.'/';
-        $fileName = time().'-'.$file->getClientOriginalName();
-        $uploadSuccess = $request->file('image')->move($path, $fileName);
-
-
         $pedido = Pedido::create([
-            'person_id' => $user->person->id,
+            'meds' => $request->all()['meds'],
+            'person_id' => $request->all()['person_id'],
             'pharmacy_id' => $request->all()['pharmacy_id'],
             'address' => $request->all()['address'],
             'phone' => $request->all()['phone'],
-            'prescription' => '/'.$path.$fileName,
             'payment' => $request->all()['payment'],
+            'total' => $request->all()['total'],
             'state_id' => 1
         ]);
     }
@@ -193,5 +182,10 @@ class PedidoController extends Controller
             'status' => 'Error',
             'message' => 'El usuario no existe.'
         ]);
+    }
+
+    public function viewCompra() 
+    {
+        return view('pedidos.compra');
     }
 }
